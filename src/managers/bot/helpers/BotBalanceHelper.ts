@@ -3,6 +3,7 @@ import { IUser } from "../../../entities/User";
 import { kSolAddress } from "../../../services/solana/Constants";
 import { RpcManager } from "../../../services/solana/RpcManager";
 import { BotHelper, Message } from "./BotHelper";
+import { ExplorerManager } from "../../../services/explorers/ExplorerManager";
 
 export class BotBalanceHelper extends BotHelper {
 
@@ -54,7 +55,7 @@ export class BotBalanceHelper extends BotHelper {
             message = 'Your balance:\n';
          
             for (const token of tokens) {
-                message += `<a href="https://solscan.io/account/${token.mint}">${token.symbol.toUpperCase()}</a>: ${token.balance}`;
+                message += `<a href="${ExplorerManager.getUrlToToken(token.mint)}">${token.symbol.toUpperCase()}</a>: ${token.balance}`;
                 if (token.usdValue){
                     message += ` ($${Math.floor(token.usdValue * 100) / 100})`;
                 }

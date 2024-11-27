@@ -1,4 +1,5 @@
 import { IUser } from "../../../entities/User";
+import { ExplorerManager } from "../../../services/explorers/ExplorerManager";
 import { UserManager } from "../../UserManager";
 import { TgMessage } from "../BotManager";
 import { BotHelper, Message } from "./BotHelper";
@@ -19,7 +20,7 @@ export class BotStartHelper extends BotHelper {
         console.log('Start', 'commandReceived', 'user:', user);
 
         const wallet = user.wallet;
-        ctx.reply(`Hey, it's TipMe!\n\nI can send tokens to anyone on SOON. Fund your wallet with your treasury tokens and some SOL to cover gas fees.\n\nYou wallet public key:\n<a href="https://solscan.io/account/${wallet.publicKey}">${wallet.publicKey}</a>\n\n🚨 TIPME WORKS ON SOON TESTNET`, {
+        ctx.reply(`Hey, it's TipMe!\n\nI can send tokens to anyone on SOON. Fund your wallet with your treasury tokens and some SOL to cover gas fees.\n\nYou wallet public key:\n<a href="${ExplorerManager.getUrlToAccount(wallet.publicKey)}">${wallet.publicKey}</a>\n\n🚨 TIPME WORKS ON SOON TESTNET`, {
             parse_mode: 'HTML', 
             link_preview_options: {
                 is_disabled: true
